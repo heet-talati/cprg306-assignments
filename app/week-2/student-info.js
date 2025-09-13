@@ -6,7 +6,11 @@ export default function StudentInfo() {
       <p>Name: Heet Talati</p>
       <p>
         GitHub:{" "}
-        <Link href={"https://github.com/heet-talati"} className="underline">
+        <Link
+          href={"https://github.com/heet-talati"}
+          className="underline"
+          target="_blank"
+        >
           {" "}
           heet-talati/cprg306-assignments
         </Link>
