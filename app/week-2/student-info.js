@@ -7,7 +7,7 @@ export default function StudentInfo() {
       <p>
         GitHub:{" "}
         <Link
-          href={"https://github.com/heet-talati"}
+          href={"https://github.com/heet-talati/cprg306-assignments"}
           className="underline"
           target="_blank"
         >
