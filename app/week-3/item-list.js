@@ -65,7 +65,7 @@ const items = [
 
 export default function ItemList() {
   return (
-    <ul className="mt-3">
+    <ul className="mt-3 flex flex-col gap-2">
       {items.map((item, index) => {
         return <Item key={index} {...item} />;
       })}
