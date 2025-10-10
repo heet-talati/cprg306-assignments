@@ -7,6 +7,9 @@ import * as Items from "./items.json";
 export default function ItemList() {
   const [items, setItems] = useState(JSON.parse(JSON.stringify(Items.default)));
   const [sortBy, setSortBy] = useState("name");
+  const sortedItems = [...items].sort((a, b) =>
+    a[sortBy].localeCompare(b[sortBy])
+  );
 
   return (
     <>
@@ -20,9 +23,6 @@ export default function ItemList() {
           }`}
           onClick={() => {
             setSortBy("name");
-            setItems((items) =>
-              [...items].sort((a, b) => a.name.localeCompare(b.name))
-            );
           }}
         >
           Name
@@ -35,16 +35,13 @@ export default function ItemList() {
           }`}
           onClick={() => {
             setSortBy("category");
-            setItems((items) =>
-              [...items].sort((a, b) => a.category.localeCompare(b.category))
-            );
           }}
         >
           Category
         </button>
       </div>
       <ul className="mt-3 flex flex-col gap-2">
-        {items.map((item) => {
+        {sortedItems.map((item) => {
           return <Item key={item.id} {...item} />;
         })}
       </ul>
