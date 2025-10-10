@@ -21,7 +21,7 @@ export default function ItemList() {
           onClick={() => {
             setSortBy("name");
             setItems((items) =>
-              items.sort((a, b) => a.name.localeCompare(b.name))
+              [...items].sort((a, b) => a.name.localeCompare(b.name))
             );
           }}
         >
@@ -36,7 +36,7 @@ export default function ItemList() {
           onClick={() => {
             setSortBy("category");
             setItems((items) =>
-              items.sort((a, b) => a.category.localeCompare(b.category))
+              [...items].sort((a, b) => a.category.localeCompare(b.category))
             );
           }}
         >
