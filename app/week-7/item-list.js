@@ -2,11 +2,24 @@
 
 import { useState } from "react";
 import Item from "./item";
-import * as Items from "./items.json";
 
-export default function ItemList() {
-  const [items, setItems] = useState(JSON.parse(JSON.stringify(Items.default)));
+export default function ItemList({ items, setItems }) {
   const [sortBy, setSortBy] = useState("name");
+  const sortedItems = [...items].sort((a, b) => {
+    // Sort case-insensitively
+    const A = a[sortBy]?.toLowerCase();
+    const B = b[sortBy]?.toLowerCase();
+
+    if (A < B) return -1;
+    if (A > B) return 1;
+
+    // Secondary sort: if sorting by category, then sort by name inside each category
+    if (sortBy === "category") {
+      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    }
+
+    return 0;
+  });
 
   return (
     <>
@@ -20,9 +33,6 @@ export default function ItemList() {
           }`}
           onClick={() => {
             setSortBy("name");
-            setItems((items) =>
-              items.sort((a, b) => a.name.localeCompare(b.name))
-            );
           }}
         >
           Name
@@ -35,16 +45,13 @@ export default function ItemList() {
           }`}
           onClick={() => {
             setSortBy("category");
-            setItems((items) =>
-              items.sort((a, b) => a.category.localeCompare(b.category))
-            );
           }}
         >
           Category
         </button>
       </div>
       <ul className="mt-3 flex flex-col gap-2">
-        {items.map((item) => {
+        {sortedItems.map((item) => {
           return <Item key={item.id} {...item} />;
         })}
       </ul>

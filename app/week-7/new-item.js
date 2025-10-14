@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-export default function NewItem() {
+export default function NewItem({ onAddItem }) {
   const [quantity, setQuantity] = useState(1);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("produce");
@@ -30,13 +30,14 @@ export default function NewItem() {
     e.preventDefault();
     const item = { name, category, quantity };
     console.log("Item:", item);
-    alert(
-      `
-      Item: ${item.name}
-      Quantity: ${item.quantity}
-      Category: ${item.category}
-      `
-    );
+    // alert(
+    //   `
+    //   Item: ${item.name}
+    //   Quantity: ${item.quantity}
+    //   Category: ${item.category}
+    //   `
+    // );
+    onAddItem(name, quantity, category);
 
     setQuantity(1);
     setName("");
@@ -44,9 +45,12 @@ export default function NewItem() {
   }
 
   return (
-    <div className="mx-auto max-w-md p-4 flex flex-col">
+    <div className="p-4 flex flex-col">
       <h1 className="text-2xl font-bold mb-4 text-gray-700">Add New Item</h1>
-      <form className="flex flex-col p-4 bg-gray-900 rounded-md">
+      <form
+        className="flex flex-col p-4 bg-gray-900 rounded-md"
+        onSubmit={handleSubmit}
+      >
         <div className="flex flex-col gap-2 p-4">
           <label htmlFor="item-name" className="text-gray-500">
             Item Name
@@ -114,7 +118,6 @@ export default function NewItem() {
           type="submit"
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
           value={"Add Item"}
-          onClick={handleSubmit}
         />
       </form>
     </div>
